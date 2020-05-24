@@ -1,26 +1,52 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from 'react'
+import Layout from './layout'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+export const useFetch = (initialUrl) => {
+    const [res, setRes] = useState({})
+    const [url, setUrl] = useState(initialUrl)
+    const [isLoading, setIsLoading] = useState(false)
+    const [isError, setIsError] = useState(false)
+
+    useEffect(() => {
+        if (!url) return
+
+        const fetchData = async () => {
+            setIsError(false)
+            setIsLoading(true)
+            try {
+                const response = await fetch(url)
+                const result = await response.json()
+
+                setRes(result)
+            } catch (error) {
+                setIsError(true)
+            }
+            setIsLoading(false)
+        }
+        fetchData()
+    }, [url])
+
+    return { res, isLoading, isError, doFetch: setUrl }
 }
 
-export default App;
+export const BASE_URL = 'http://localhost:3000'
+
+function App() {
+    const { res: project, isLoading, isError, doFetch } = useFetch()
+
+    React.useEffect(() => {
+        doFetch(`${BASE_URL}/ping`)
+    }, [])
+
+    return (
+        <Layout>
+            <div>
+                <p>
+                    Edit <code>src/App.js</code> and save to reload.
+                </p>
+            </div>
+        </Layout>
+    )
+}
+
+export default App
