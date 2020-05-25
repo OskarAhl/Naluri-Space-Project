@@ -1,5 +1,6 @@
 // BigInt Generator for the Spigot algorithm
 // https://en.wikipedia.org/wiki/Spigot_algorithm
+// http://www.pi314.net/eng/goutte.php
 // https://observablehq.com/@mourner/calculating-pi-digits
 
 function* PIDigitsGenerator() {
