@@ -31,8 +31,10 @@ function App() {
         }
     }, [res])
 
+    // TODO: move inside <Layout />
     if (isLoading) return <Text>Loading...</Text>
 
+    // TODO: move inside <Layout />
     if (isError)
         return (
             <Text>

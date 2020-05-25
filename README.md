@@ -22,6 +22,12 @@ yarn run start-client
 yarn run start-server
 ```
 
+**Tests:**
+
+```
+yarn run test
+```
+
 ## TODOs:
 
 -   Environment variables (e.g. for server url)
