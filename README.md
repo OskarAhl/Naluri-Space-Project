@@ -28,13 +28,13 @@ yarn run start-server
 
 **Client**
 
--   Add polling - better UX but more requests to server
+-   Add polling
 
 **Server**
 
 -   Add logging
 -   Add monitoring (e.g. of PI calculation and memory usage)
--   Add Rate limiting
+-   Add rate limiting
 -   Store latest PI in database
 
 ## Long-term TODOS:
