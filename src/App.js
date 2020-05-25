@@ -1,50 +1,68 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
+import styled from '@emotion/styled'
+import { Heading, Stack, Text } from '@chakra-ui/core'
+import { Decimal } from 'decimal.js'
+import { useFetch } from './use-fetch'
+import { COLORS } from './colors'
 import Layout from './layout'
 
-export const useFetch = (initialUrl) => {
-    const [res, setRes] = useState({})
-    const [url, setUrl] = useState(initialUrl)
-    const [isLoading, setIsLoading] = useState(false)
-    const [isError, setIsError] = useState(false)
+const Block = styled.div`
+    background-color: ${COLORS.BLACK};
+    padding: 8px;
+    border-radius: 6px;
+    word-wrap: break-word;
+`
 
-    useEffect(() => {
-        if (!url) return
-
-        const fetchData = async () => {
-            setIsError(false)
-            setIsLoading(true)
-            try {
-                const response = await fetch(url)
-                const result = await response.json()
-
-                setRes(result)
-            } catch (error) {
-                setIsError(true)
-            }
-            setIsLoading(false)
-        }
-        fetchData()
-    }, [url])
-
-    return { res, isLoading, isError, doFetch: setUrl }
-}
-
-export const BASE_URL = 'http://localhost:3000'
+const BASE_URL = 'http://localhost:3000'
+const DIAMETER_OF_SUN_MILLION_KM = 1.3927
 
 function App() {
-    const { res: project, isLoading, isError, doFetch } = useFetch()
+    const [sunCircumference, setSunCircumference] = React.useState()
+    const { res, isLoading, isError, doFetch } = useFetch()
 
     React.useEffect(() => {
-        doFetch(`${BASE_URL}/ping`)
-    }, [])
+        doFetch(`${BASE_URL}/pi`)
+    }, [doFetch])
+
+    React.useEffect(() => {
+        if (res.PI) {
+            const newSunCircumference = new Decimal(res.PI).times(DIAMETER_OF_SUN_MILLION_KM).toString()
+            setSunCircumference(newSunCircumference)
+        }
+    }, [res])
+
+    if (isLoading) return <Text>Loading...</Text>
+
+    if (isError)
+        return (
+            <Text>
+                Something went wrong - please refresh
+                <span aria-label="space" role="img">
+                    ⚠️
+                </span>
+            </Text>
+        )
 
     return (
         <Layout>
-            <div>
-                <p>
-                    Edit <code>src/App.js</code> and save to reload.
-                </p>
-            </div>
+            <Stack spacing={8}>
+                <Stack>
+                    <Heading as="h2" size="lg">
+                        Pi:
+                    </Heading>
+                    <Block>
+                        <Text color={COLORS.NEON}>{res.PI}</Text>
+                    </Block>
+                </Stack>
+                <Stack>
+                    <Heading as="h2" size="lg">
+                        Sun circumference: (million km)
+                    </Heading>
+                    <Block>
+                        <Text color={COLORS.PINK}>{sunCircumference}</Text>
+                    </Block>
+                </Stack>
+            </Stack>
         </Layout>
     )
 }

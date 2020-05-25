@@ -7,6 +7,7 @@
         "@chakra-ui/core": "^0.8.0",
         "@emotion/core": "^10.0.28",
         "@emotion/styled": "^10.0.27",
+        "decimal.js": "^10.2.0",
         "emotion-theming": "^10.0.27",
         "express": "^4.17.1",
         "react": "^16.13.1",
@@ -18,7 +19,7 @@
         "start-client": "react-scripts start",
         "build-client": "react-scripts build",
         "eject": "react-scripts eject",
-        "test": "mocha ./src/**/**.spec.js"
+        "test": "mocha ./server/**/**.spec.js"
     },
     "eslintConfig": {
         "extends": "react-app"
