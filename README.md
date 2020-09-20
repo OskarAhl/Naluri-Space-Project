@@ -1,4 +1,4 @@
-# 🚀 The Naluri Space Project
+# 🚀 Node PI calculator
 
 Nodejs server that generates PI digits on a child process with the [Spigot algorithm](https://en.wikipedia.org/wiki/Spigot_algorithm).
 
