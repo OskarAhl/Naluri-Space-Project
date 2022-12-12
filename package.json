@@ -9,7 +9,7 @@
         "@emotion/styled": "^10.0.27",
         "decimal.js": "^10.2.0",
         "emotion-theming": "^10.0.27",
-        "express": "^4.17.1",
+        "express": "^4.17.3",
         "react": "^16.13.1",
         "react-dom": "^16.13.1",
         "react-scripts": "3.4.1"
